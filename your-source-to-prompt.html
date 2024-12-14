@@ -422,6 +422,8 @@
                 <div class="flex items-center gap-2">
                     <input type="checkbox" id="minifyOutput" data-tippy-content="Check to minify JavaScript, CSS, HTML, JSON, etc. to reduce size.">
                     <label for="minifyOutput" class="font-semibold" data-tippy-content="Minification can help fit more code into smaller model contexts.">Minify Combined Output</label>
+                    <input type="checkbox" id="removeComments" data-tippy-content="Check to remove comments from files">
+                    <label for="removeComments" class="font-semibold" data-tippy-content="Remove comments to reduce number of tokens">Remove comments</label>
                 </div>
                 <div id="minifyStats" class="text-sm text-gray-700 hidden" data-tippy-content="Shows how much size and lines are saved after minification."></div>
             </div>
@@ -592,6 +594,8 @@
         const minifyOutput = document.getElementById('minifyOutput');
         const minifyStats = document.getElementById('minifyStats');
 
+        const removeComments = document.getElementById('removeComments');
+
         const darkModeToggle = document.getElementById('darkModeToggle');
         darkModeToggle.addEventListener('click', () => {
             const isDark = document.documentElement.classList.toggle('dark');
@@ -652,6 +656,7 @@
             clearFilterSelectionsBtn.disabled = isLoading;
             fileTypeFilterButtons.forEach(btn => btn.disabled = isLoading);
             minifyOutput.disabled = isLoading;
+            removeComments.disabled = isLoading;
         }
 
         function isTextFile(name) {
@@ -1115,6 +1120,9 @@
                     let fileContent = f.content.trim();
                     if (minifyOutput.checked) {
                         fileContent = await minifyContent(f.path, fileContent);
+                    }
+                    if (removeComments.checked) {
+                        fileContent = fileContent.replace(/\/\*[\s\S]*?\*\/|(?<=[^:])\/\/.*|^\/\/.*/g,'');
                     }
                     combinedContent += `---\n${f.path}\n---\n${fileContent}\n\n`;
                 }
