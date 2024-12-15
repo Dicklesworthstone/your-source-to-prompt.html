@@ -753,7 +753,7 @@
                 '.sh', '.bash', '.py', '.java', '.cpp', '.c', '.h',
                 '.config', '.env', '.gitignore', '.sql', '.ts',
                 '.tsx', '.schema', '.mjs', '.cjs', '.jsx', '.rs',
-                '.go', '.php', '.rb', '.toml', '.prisma', '.bat', '.ps1'
+                '.go', '.php', '.rb', '.toml', '.prisma', '.bat', '.ps1', '.mdx'
             ];
             return textExtensions.some(ext => name.toLowerCase().endsWith(ext));
         }
@@ -1441,7 +1441,7 @@
             react: [".jsx", ".tsx"],
             ts: [".ts", ".tsx"],
             json: [".json"],
-            md: [".md"],
+            md: [".md", ".mdx"],
             py: [".py"],
             go: [".go"],
             java: [".java"],
