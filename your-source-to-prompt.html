@@ -755,6 +755,14 @@
                 '.tsx', '.schema', '.mjs', '.cjs', '.jsx', '.rs',
                 '.go', '.php', '.rb', '.toml', '.prisma', '.bat', '.ps1'
             ];
+            // Check for exact matches for files without extensions
+            const exactMatches = ['Makefile', 'Dockerfile'];
+            
+            // First check exact matches
+            if (exactMatches.includes(name)) {
+                return true;
+            }
+            // Then check extensions
             return textExtensions.some(ext => name.toLowerCase().endsWith(ext));
         }
 
