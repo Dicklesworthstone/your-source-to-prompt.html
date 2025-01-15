@@ -105,10 +105,24 @@
             border: 2px solid rgba(255, 255, 255, 0.2);
             animation: pulse 2s infinite;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
         .combine-button:hover {
             transform: scale(1.15);
             box-shadow: 0 0 30px rgba(34, 197, 94, 0.6);
+        }
+        .combine-spinner {
+            display: none;
+            animation: spin 1s linear infinite;
+        }
+        .combine-button.processing .combine-text { display: none; }
+        .combine-button.processing .combine-spinner { display: inline-block; }
+        .combine-button.processing { 
+            background: linear-gradient(45deg, #64748b, #475569);
+            transform: scale(1);
+            pointer-events: none;
         }
         @keyframes pulse {
             0% {
@@ -120,6 +134,10 @@
             100% {
                 box-shadow: 0 0 20px rgba(34, 197, 94, 0.4);
             }
+        }
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
         }
         .search-container {
             display: flex;
@@ -376,8 +394,9 @@
 
             <div class="combine-button-container" >
                 <button id="combineBtn" class="combine-button flex items-center gap-2 mx-auto" data-tippy-content="Combine all selected files into a single output.">
-                    <i class="fas fa-file-medical"></i>
-                    Combine Selected Files
+                    <i class="fas fa-sync-alt combine-spinner"></i>
+                    <i class="fas fa-file-medical combine-icon"></i>
+                    <span class="combine-text">Combine Selected Files</span>
                 </button>
             </div>
 
@@ -1209,7 +1228,11 @@
                 showGlobalMessage('Please select at least one text file');
                 return;
             }
+            
+            // Add processing state to button
+            combineBtn.classList.add('processing');
             setLoading(true, 'Combining selected files...');
+            
             try {
                 const selectedFiles = [];
                 let originalTotalSize = 0;
@@ -1321,6 +1344,7 @@
                 showGlobalMessage('Error combining files: ' + error.message);
             } finally {
                 setLoading(false);
+                combineBtn.classList.remove('processing');
             }
         });
 
