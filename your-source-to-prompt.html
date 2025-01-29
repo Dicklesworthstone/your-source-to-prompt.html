@@ -1426,16 +1426,6 @@
             updateFolderCheckboxes();
         }
 
-        folderBtn.addEventListener('click', async () => {
-            try {
-                folderHandle = await window.showDirectoryPicker();
-                document.getElementById('folderWarning').classList.add('hidden');
-            } catch (err) {
-                console.error('Error selecting folder:', err);
-                document.getElementById('folderWarning').classList.remove('hidden');
-            }
-        });
-
         const fileTypePatterns = {
             js: [".js", ".mjs", ".cjs"],
             react: [".jsx", ".tsx"],
