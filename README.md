@@ -10,6 +10,7 @@ Wait, ANOTHER tool to take code files and turn them into a single prompt file fo
 5. [ingest](https://github.com/sammcj/ingest)
 6. [1filellm](https://github.com/jimmc414/1filellm)
 7. [repo2file](https://github.com/artkulak/repo2file)
+8. [code-to-gpt](https://github.com/skelouse/code-to-gpt)
 
 … and others keep cropping up. Yet, **Your Source to Prompt** stands out with a unique set of capabilities that address many pain points these existing tools don’t fully resolve.
 
